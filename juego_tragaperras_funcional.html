@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <base href="img/">
+    <style>
+        html {
+            max-width: 100vw;
+            max-height: 100vh;
+            overflow-x: hidden;
+        }
+
+
+        body {
+            text-align: left;
+            width: 100vw;
+            height: 100vh;
+            background: url(fondo_juego.png)
+        }
+
+
+
+        .fotos_fondo_pirata {
+            height: 100vh;
+            width: 50vw;
+            opacity: 0.7;
+            border-radius: 30px;
+
+        }
+
+
+        form {
+            display: flex;
+            flex-direction: row;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+
+        .foto_juego {
+            width: 400px;
+            height: 400px;
+            border-radius: 30px;
+            margin: 30px;
+            cursor: pointer;
+        }
+
+        .opt_nav_lab {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.6em 2em;
+            border: none;
+            outline: none;
+            color: rgb(255, 255, 255);
+            background: #000000;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+
+        }
+
+        .opt_nav_lab:before {
+            content: "";
+            background: linear-gradient(45deg,
+                    #ff0000,
+                    #002bff,
+                    #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing-button-85 20s linear infinite;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        button {
+            width: 20vw;
+            height: 6vh;
+            padding: 0.6em 2em;
+            border: none;
+            outline: none;
+            color: rgb(255, 255, 255);
+            background: #e60606;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        button:before {
+            content: "";
+            background: linear-gradient(45deg,
+                    #ff0000,
+                    #ff7300,
+                    #fffb00,
+                    #48ff00,
+                    #00ffd5,
+                    #002bff,
+                    #7a00ff,
+                    #ff00c8,
+                    #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing-button-85 20s linear infinite;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing-button-85 {
+            0% {
+                background-position: 0 0;
+            }
+
+            50% {
+                background-position: 400% 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        button:after {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #21213f;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        /* ahora comienza el css del primer juego */
+
+        .cuerpo_juego1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .premio_juego {
+            border: 2px solid black;
+            background: rgb(255, 247, 247);
+            color: black;
+            width: 50vw;
+            height: 10vh;
+            border-radius: 30px;
+            display: none;
+
+        }
+
+
+        .menu_navegacion {
+            height: auto;
+            width: 70vw;
+            border: 2px solid rgb(255, 255, 255);
+            display: flex;
+            justify-content: space-between;
+            background: linear-gradient(45deg,
+                    #ff0000,
+                    #e100ff,
+                    #002bff,
+                    #0a0d38);
+            border-radius: 10px;
+        }
+
+        .opt_nav {
+            height: 5vh;
+            width: 10vw;
+            border: 1px dotted violet;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 30px;
+            transition: 1s;
+
+        }
+
+        .opt_nav:hover {
+            width: 15vw;
+            transition: 1s;
+        }
+
+
+        .zona_partida {
+            background: rgb(19, 30, 68);
+            border: 2px solid black;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rodillos {
+            width: 70vw;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item {
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 15px;
+            height: 40vh;
+            width: 30vw;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        .foto {
+            height: 30vh;
+            width: 20vw;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+
+        }
+
+        .giros {
+            width: 24vw;
+
+        }
+
+        .botones_1_giro {
+            height: 1vh;
+            display: auto;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+
+
+        .botones {
+            width: 50vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
+
+        }
+
+        #parar {
+            display: none;
+        }
+
+        .premio_juego {
+            height: 5vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            transition: 2s;
+            gap: 5px;
+        }
+
+
+        .premio {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            text-transform: uppercase;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+
+    <script>
+
+        let cartera = 0;
+
+        const f_ingresar_dinero =
+            () => cartera += 1;
+
+
+        const f_ver_modificacion_cartera =
+            () => {
+                f_ingresar_dinero();
+                document.getElementById("monedero").innerText = cartera + "$";
+            }
+
+        const f_cobrar_dinero =
+            () => {
+                f_suma_beneficio();
+
+                cartera = 0
+                //el codigo que esta encima lo que hace es volver a 0 el dinero disponible
+
+                document.getElementById("monedero").innerText = cartera + "$";
+
+            }
+
+        function f_suma_beneficio() {
+
+            let valor1 = parseFloat(document.getElementById('monedero').innerText.replace('$', '').trim());
+            let valor2 = parseFloat(document.getElementById('ganancias').innerText.replace('$', '').trim());
+
+            // Suma los valores como números
+            let suma = valor1 + valor2;
+
+            document.getElementById("ganancias").innerText = suma + "$";
+        }
+
+
+        const f_cobrar_1_tirada =
+            () => {
+
+                let cobro_1_giro = 1;
+
+                if (cartera === 0) {
+                    alert('no tienes dinero con el que jugar')
+                    return
+                } else {
+                    cartera -= cobro_1_giro
+                    document.getElementById("monedero").innerText = cartera + "$";
+                }
+
+                f_girar();
+
+            }
+
+        const f_cobrar_giro_independiente =
+            () => {
+
+                let cobro_giro_individual = 1;
+
+                if (cartera === 0) {
+                    alert('no tienes dinero con el que jugar')
+                    return
+                } else {
+                    cartera -= cobro_giro_individual
+                    document.getElementById("monedero").innerText = cartera + "$";
+                }
+
+            }
+
+        //voy añadir la funcion de devolver el dinero que hemos ganado y que esta en la cartera virtual
+
+        const dinero_acumulado = [];
+
+        function f_coger_dinero_monedero() {
+
+        }
+
+
+
+        //aqui tengo todas las fotos con las que vamos a jugar 
+        const fotos = ['icon_1.png', 'icon_2.png', 'icon_3.png', 'icon_4.png', 'icon_5.png', 'icon_6.png', 'icon_7.png', 'icon_8.png', 'icon_9.png'];
+        // 'icon_4','icon_5','icon_6','icon_7','icon_8','icon_9']
+
+        //en esta constante lo que hago es asignarles un numero del 1 al 3 a los iconos
+        const asignar_valor_iconos = fotos.reduce((acc, foto, index) => {
+            acc[index + 1] = foto;
+            return acc;
+        }, {});
+
+
+        //en esta funcion lo que voy a hacer es que se le asigne un orden aleatorio a esos numeros dentro del array
+        const f_ordenar_aleatorios =
+            () => {
+                let iconos = Object.values(asignar_valor_iconos);
+                let resultado = [];
+
+                for (let i = 0; i < iconos.length; i++) {
+                    const j = Math.floor(Math.random() * iconos.length);
+                    resultado.push(iconos[j])
+                }
+
+                console.log('el orden de los iconos es ', iconos);
+
+                return resultado;
+            }
+
+
+
+        //ahora vamos a ver si podemos imprimir las imagenes en la pantalla
+
+        const f_girar =
+            () => {
+
+                const iconos_aleatorios = f_ordenar_aleatorios(3);
+
+                document.getElementById('foto1').src = iconos_aleatorios[0];
+                document.getElementById('foto2').src = iconos_aleatorios[1];
+                document.getElementById('foto3').src = iconos_aleatorios[2];
+
+                document.getElementById("ver_premio").style.display = 'none'
+
+                f_comparar_imagenes()
+                f_comprobar_premio()
+                f_ver_botones_1_giro()
+                f_esconder_giros_independientes();
+
+            }
+
+        const f_girar_sin_comprobar =
+            () => {
+
+                const iconos_aleatorios = f_ordenar_aleatorios();
+
+                document.getElementById('foto1').src = iconos_aleatorios[0];
+                document.getElementById('foto2').src = iconos_aleatorios[1];
+                document.getElementById('foto3').src = iconos_aleatorios[2];
+
+                document.getElementById("ver_premio").style.display = 'none'
+
+
+
+            }
+
+        function f_comparar_imagenes() {
+
+            let imagen1 = document.getElementById('foto1');
+            let imagen2 = document.getElementById('foto2');
+            let imagen3 = document.getElementById('foto3');
+
+            if (imagen1.src === imagen2.src && imagen2.src === imagen3.src) {
+                // alert('las 3 imagenes son iguales')
+            }
+        }
+
+        function f_comprobar_premio() {
+
+            let imagen1 = document.getElementById('foto1');
+            let imagen2 = document.getElementById('foto2');
+            let imagen3 = document.getElementById('foto3');
+
+            let src1 = imagen1.src;
+            let src2 = imagen2.src;
+            let src3 = imagen3.src;
+
+
+            if (src1.includes("icon_1.png") && src2.includes("icon_1.png") && src3.includes("icon_1.png")) {
+                premio1 = 10
+                cartera += premio1;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio1 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none'
+
+
+            } else if (src1.includes("icon_2.png") && src2.includes("icon_2.png") && src3.includes("icon_2.png")) {
+                premio2 = 20
+                cartera += premio2;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio2 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+
+            } else if (src1.includes("icon_3.png") && src2.includes("icon_3.png") && src3.includes("icon_3.png")) {
+                premio3 = 30;
+                cartera += premio3;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio3 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            } else if (src1.includes("icon_4.png") && src2.includes("icon_4.png") && src3.includes("icon_4.png")) {
+                premio4 = 40;
+                cartera += premio4;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio4 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            } else if (src1.includes("icon_5.png") && src2.includes("icon_5.png") && src3.includes("icon_5.png")) {
+                premio5 = 50;
+                cartera += premio5;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio5 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            } else if (src1.includes("icon_6.png") && src2.includes("icon_6.png") && src3.includes("icon_6.png")) {
+                premio6 = 60;
+                cartera += premio4;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio6 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            } else if (src1.includes("icon_7.png") && src2.includes("icon_7.png") && src3.includes("icon_7.png")) {
+                premio7 = 70;
+                cartera += premio7;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio7 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            } else if (src1.includes("icon_8.png") && src2.includes("icon_8.png") && src3.includes("icon_8.png")) {
+                premio8 = 80;
+                cartera += premio8;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio8 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            } else if (src1.includes("icon_9.png") && src2.includes("icon_9.png") && src3.includes("icon_9.png")) {
+                premio9 = 90;
+                cartera += premio9;
+                f_ver_cuadro_premio()
+                document.getElementById("monedero").textContent = `${cartera}$`;
+                document.getElementById('cantidad_premio').textContent = premio9 + "$";
+                document.querySelector('.botones_1_giro').style.display = 'none';
+
+            }
+        }
+
+
+        let intervalo;
+
+        const f_giro_automatico =
+            () => {
+
+                let cobro_4_giros = 4;
+                let giro_automatico = document.getElementById('auto_giro');
+
+
+                if (cartera <= 4) {
+                    alert('necesitas al menos 4$ para activar el giro automatico')
+                    return
+
+                } else {
+                    intervalo = setInterval(f_girar_sin_comprobar, 100);
+                    cartera -= cobro_4_giros
+                }
+
+                document.getElementById("monedero").innerText = cartera + "$";
+                giro_automatico.style.display = 'none'
+
+                f_mostrar_boton_parar()
+
+            }
+
+        const f_parar_giro =
+            () => {
+                clearInterval(intervalo);
+                f_comparar_imagenes();
+                f_comprobar_premio();
+                f_ver_botones_1_giro();
+                f_ver_no_ver_boton_parar();
+
+                let giro_automatico = document.getElementById('auto_giro');
+                giro_automatico.style.display = 'flex'
+
+
+
+            }
+
+        const f_ver_no_ver_boton_parar =
+            () => {
+
+                let estado = document.getElementById('parar');
+
+                if (estado.style.display === 'flex') {
+
+                    estado.style.display = 'none';
+                } else {
+                    estado.style.display = 'flex';
+                }
+            }
+
+        //voy a poner que cuando comiences a jugar  ,no te aparezca la capa del premio
+        const f_ver_cuadro_premio =
+            () => {
+
+                let display_cuadro = document.getElementById("ver_premio").style.display;
+
+                if (display_cuadro = 'none') {
+
+                    document.getElementById("ver_premio").style.display = 'flex'
+                }
+            }
+
+        function f_ver_botones_1_giro() {
+
+            document.querySelector('.botones_1_giro').style.display = 'flex';
+
+        }
+
+        function f_girar_independiente_1() {
+
+            const iconos_aleatorios = f_ordenar_aleatorios();
+            document.getElementById('foto1').src = iconos_aleatorios[0];
+            f_comprobar_premio();
+            f_cobrar_giro_independiente();
+            f_esconder_giros_independientes();
+
+        }
+
+        function f_girar_independiente_2() {
+
+            const iconos_aleatorios = f_ordenar_aleatorios();
+            document.getElementById('foto2').src = iconos_aleatorios[1];
+            f_comprobar_premio();
+            f_cobrar_giro_independiente();
+            f_esconder_giros_independientes();
+        }
+
+        function f_girar_independiente_3() {
+
+            const iconos_aleatorios = f_ordenar_aleatorios();
+            document.getElementById('foto3').src = iconos_aleatorios[2];
+            f_comprobar_premio();
+            f_cobrar_giro_independiente();
+            f_esconder_giros_independientes();
+        }
+
+
+        function f_esconder_giros_independientes() {
+
+            if (cartera === 0) {
+                document.querySelector('.botones_1_giro').style.display = 'none'
+            }
+        }
+
+        function f_mostrar_boton_parar() {
+            document.getElementById('parar').style.display = 'flex';
+        }
+        //voy a revisar si las 3 fotos que te aparecen son iguales o no
+
+
+
+
+
+    </script>
+
+<body>
+    <div align="center" class="cuerpo_juego1">
+
+        <nav>
+            <div class="menu_navegacion">
+
+
+                <button id="ingresar1" class="opt_nav" onclick="f_ver_modificacion_cartera()">Añadir 1$</button>
+
+                <label id="monedero" class="opt_nav_lab"> Dinero para jugar 0$</label>
+
+                <button class="opt_nav" id="recibir_ganancias" onclick="f_cobrar_dinero()">Cobrar Dinero</button>
+
+                <label id="ganancias" class="opt_nav_lab">0$</label>
+
+                <button id="devolver_dinero" class="opt_nav">Añadir dinero al juego</button>
+
+            </div>
+        </nav>
+
+        <div class="premio_juego" id="ver_premio">
+
+            <label class="premio">Ganaste </label>
+            <label id="cantidad_premio" class="premio">0$</label>
+
+        </div>
+
+        <div class="zona_partida">
+
+            <div class="rodillos">
+                <div class="item" id="item1">
+                    <img class="foto" src="icon_1.png" id="foto1">
+                </div>
+                <div class="item" id="item2">
+                    <img class="foto" src="icon_2.png" id="foto2">
+                </div>
+                <div class="item" id="item3">
+                    <img class="foto" src="icon_3.png" id="foto3">
+                </div>
+            </div>
+
+            <div class="botones_1_giro">
+                <div class="giros">
+                    <button id="girar_1_rodillo" onclick="f_girar_independiente_1()">1 giro</button>
+                </div>
+                <div class="giros">
+                    <button id="girar_2_rodillo" onclick="f_girar_independiente_2()">1 giro</button>
+                </div>
+                <div class="giros">
+                    <button id="girar_3_rodillo" onclick="f_girar_independiente_3()">1 giro</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="botones">
+            <button onclick="f_cobrar_1_tirada()">1 Giro</button>
+            <button id="auto_giro" class="parar" onclick="f_giro_automatico()">Giro Automatico 4$</button>
+            <button id="parar" onclick="f_parar_giro()">Parar Tirada</button>
+
+        </div>
+    </div>
+</body>
+
+</html>
