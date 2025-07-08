@@ -460,7 +460,7 @@
 
 
             if (src1.includes("icon_1.png") && src2.includes("icon_1.png") && src3.includes("icon_1.png")) {
-                premio1 = 10
+                premio1 = 2;
                 cartera += premio1;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -469,7 +469,7 @@
 
 
             } else if (src1.includes("icon_2.png") && src2.includes("icon_2.png") && src3.includes("icon_2.png")) {
-                premio2 = 20
+                premio2 = 4;
                 cartera += premio2;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -478,7 +478,7 @@
 
 
             } else if (src1.includes("icon_3.png") && src2.includes("icon_3.png") && src3.includes("icon_3.png")) {
-                premio3 = 30;
+                premio3 = 5;
                 cartera += premio3;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -486,7 +486,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_4.png") && src2.includes("icon_4.png") && src3.includes("icon_4.png")) {
-                premio4 = 40;
+                premio4 = 7;
                 cartera += premio4;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -494,7 +494,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_5.png") && src2.includes("icon_5.png") && src3.includes("icon_5.png")) {
-                premio5 = 50;
+                premio5 = 9;
                 cartera += premio5;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -502,15 +502,15 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_6.png") && src2.includes("icon_6.png") && src3.includes("icon_6.png")) {
-                premio6 = 60;
-                cartera += premio4;
+                premio6 = 10;
+                cartera += premio6;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
                 document.getElementById('cantidad_premio').textContent = premio6 + "$";
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_7.png") && src2.includes("icon_7.png") && src3.includes("icon_7.png")) {
-                premio7 = 70;
+                premio7 = 12;
                 cartera += premio7;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -518,7 +518,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_8.png") && src2.includes("icon_8.png") && src3.includes("icon_8.png")) {
-                premio8 = 80;
+                premio8 = 13;
                 cartera += premio8;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -526,7 +526,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_9.png") && src2.includes("icon_9.png") && src3.includes("icon_9.png")) {
-                premio9 = 90;
+                premio9 = 14;
                 cartera += premio9;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -545,8 +545,7 @@
                 let cobro_4_giros = 4;
                 let giro_automatico = document.getElementById('auto_giro');
 
-
-                if (cartera <= 4) {
+                if (cartera < 4) {
                     alert('necesitas al menos 4$ para activar el giro automatico')
                     return
 
@@ -558,7 +557,8 @@
                 document.getElementById("monedero").innerText = cartera + "$";
                 giro_automatico.style.display = 'none'
 
-                f_mostrar_boton_parar()
+                f_mostrar_boton_parar();
+                
 
             }
 
@@ -569,6 +569,7 @@
                 f_comprobar_premio();
                 f_ver_botones_1_giro();
                 f_ver_no_ver_boton_parar();
+                f_esconder_giros_independientes();
 
                 let giro_automatico = document.getElementById('auto_giro');
                 giro_automatico.style.display = 'flex'
