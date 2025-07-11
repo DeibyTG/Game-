@@ -415,6 +415,7 @@
                     document.getElementById("monedero").innerText = cartera + "$";
                 }
 
+                f_activar_1_giro();
             }
 
         //voy añadir la funcion de devolver el dinero que hemos ganado y que esta en la cartera virtual
@@ -469,7 +470,7 @@
                 f_comprobar_premio()
                 f_ver_botones_1_giro()
                 f_esconder_giros_independientes();
-                //f_ver_cuadro_reinicio();
+
 
             }
 
@@ -610,6 +611,7 @@
                 giro_automatico.style.display = 'none'
 
                 f_mostrar_boton_parar();
+                f_activar_1_giro();
 
 
 
@@ -624,9 +626,13 @@
                 f_ver_no_ver_boton_parar();
                 f_esconder_giros_independientes();
                 f_ver_cuadro_reinicio();
+                f_activar_1_giro();
+                f_desactivar_1_giro();
 
                 let giro_automatico = document.getElementById('auto_giro');
                 giro_automatico.style.display = 'flex'
+
+
 
 
 
@@ -692,6 +698,7 @@
             f_cobrar_giro_independiente();
             f_esconder_giros_independientes();
             f_ver_cuadro_reinicio();
+
         }
 
 
@@ -763,7 +770,24 @@
 
             }
 
+        function f_activar_1_giro() {
 
+            const cuadro_1_giro = document.getElementById('1_giro');
+
+            if (cuadro_1_giro.style.opacity = '1') {
+
+                cuadro_1_giro.style.opacity = '0';
+            }
+        }
+
+        function f_desactivar_1_giro() {
+            const enable_1_giro = document.getElementById('1_giro');
+
+            if (enable_1_giro.style.opacity = '0') {
+
+                enable_1_giro.style.opacity = '1'
+            }
+        }
 
     </script>
 
@@ -824,7 +848,7 @@
         </div>
 
         <div id="cuadro_mando" class="botones">
-            <button onclick="f_cobrar_1_tirada()">1 GIRO 1$</button>
+            <button id="1_giro" onclick="f_cobrar_1_tirada()">1 GIRO 1$</button>
             <button id="auto_giro" class="parar" onclick="f_giro_automatico()">Giro Automatico 4$</button>
             <button id="parar" class="parar" onclick="f_parar_giro()">Parar Tirada</button>
         </div>
