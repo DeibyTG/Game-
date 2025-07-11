@@ -160,6 +160,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 30px;
+
         }
 
         .premio_juego {
@@ -205,10 +206,16 @@
             transition: 1s;
         }
 
+        #dinero_disponible {
+            display: none;
+            transition: 2s;
+
+        }
 
         .zona_partida {
-            background: rgb(19, 30, 68);
+            background: rgba(175, 179, 197, 0.089);
             border: 2px solid black;
+            border-radius: 30px;
             height: 70vh;
             display: flex;
             flex-direction: column;
@@ -220,10 +227,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
         }
 
         .item {
             border: 2px solid rgb(0, 0, 0);
+            background-color: rgba(206, 123, 231, 0.168);
             border-radius: 15px;
             height: 40vh;
             width: 30vw;
@@ -236,8 +245,8 @@
 
 
         .foto {
-            height: 30vh;
-            width: 20vw;
+            height: 39vh;
+            width: 21vw;
             border-radius: 10px;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 
@@ -270,8 +279,38 @@
 
         }
 
+        #fin_partida {
+            text-transform: uppercase;
+            height: 30vh;
+            width: 40vw;
+            font-size: 30px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 30vh;
+            animation: respirar 1s infinite;
+        }
+
+        @keyframes respirar {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+                /* Aumenta ligeramente el tamaño */
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
         #parar {
             display: none;
+            justify-content: center;
+            align-items: center;
         }
 
         .premio_juego {
@@ -299,7 +338,11 @@
         let cartera = 0;
 
         const f_ingresar_dinero =
-            () => cartera += 1;
+            () => {
+                cartera += 10;
+                f_desactivar_boton_add_dinero();
+                f_ver_cuadro_dinero_disponible()
+            }
 
 
         const f_ver_modificacion_cartera =
@@ -365,11 +408,7 @@
 
         //voy añadir la funcion de devolver el dinero que hemos ganado y que esta en la cartera virtual
 
-        const dinero_acumulado = [];
 
-        function f_coger_dinero_monedero() {
-
-        }
 
 
 
@@ -419,6 +458,7 @@
                 f_comprobar_premio()
                 f_ver_botones_1_giro()
                 f_esconder_giros_independientes();
+                //f_ver_cuadro_reinicio();
 
             }
 
@@ -547,6 +587,7 @@
 
                 if (cartera < 4) {
                     alert('necesitas al menos 4$ para activar el giro automatico')
+                    f_ver_cuadro_reinicio();
                     return
 
                 } else {
@@ -558,7 +599,8 @@
                 giro_automatico.style.display = 'none'
 
                 f_mostrar_boton_parar();
-                
+
+
 
             }
 
@@ -570,6 +612,7 @@
                 f_ver_botones_1_giro();
                 f_ver_no_ver_boton_parar();
                 f_esconder_giros_independientes();
+                f_ver_cuadro_reinicio();
 
                 let giro_automatico = document.getElementById('auto_giro');
                 giro_automatico.style.display = 'flex'
@@ -616,6 +659,7 @@
             f_comprobar_premio();
             f_cobrar_giro_independiente();
             f_esconder_giros_independientes();
+            f_ver_cuadro_reinicio();
 
         }
 
@@ -626,6 +670,7 @@
             f_comprobar_premio();
             f_cobrar_giro_independiente();
             f_esconder_giros_independientes();
+            f_ver_cuadro_reinicio();
         }
 
         function f_girar_independiente_3() {
@@ -635,6 +680,7 @@
             f_comprobar_premio();
             f_cobrar_giro_independiente();
             f_esconder_giros_independientes();
+            f_ver_cuadro_reinicio();
         }
 
 
@@ -648,7 +694,47 @@
         function f_mostrar_boton_parar() {
             document.getElementById('parar').style.display = 'flex';
         }
-        //voy a revisar si las 3 fotos que te aparecen son iguales o no
+
+        //voy a add para que cuando le demos la boton de jugar se esconda y no puedas añadir mas dinero
+
+        function f_desactivar_boton_add_dinero() {
+
+            let desactivador = document.getElementById('ingresar1');
+
+
+            if (desactivador.style.display = 'flex') {
+                desactivador.style.display = 'none';
+            }
+        }
+
+        function f_ver_cuadro_dinero_disponible() {
+
+            let ver_dinero_jugar = document.getElementById("dinero_disponible");
+
+            if (ver_dinero_jugar.style.display = 'none') {
+                ver_dinero_jugar.style.display = 'block';
+            }
+        }
+
+        function f_ver_cuadro_reinicio() {
+
+            const cuadro_reinicio = document.getElementById('fin_partida');
+
+            if (cartera === 0) {
+                cuadro_reinicio.style.display = 'flex'
+            }
+        }
+
+        const f_reiniciar_juego =
+            () => {
+
+                const reinicio = document.getElementById("fin_partida");
+
+                reinicio = addEventListener('click', _ => {
+                    location.reload();
+                })
+
+            }
 
 
 
@@ -663,7 +749,9 @@
             <div class="menu_navegacion">
 
 
-                <button id="ingresar1" class="opt_nav" onclick="f_ver_modificacion_cartera()">Añadir 1$</button>
+                <button id="ingresar1" class="opt_nav" onclick="f_ver_modificacion_cartera()">Añadir 10$</button>
+
+                <label id="dinero_disponible" class="opt_nav_lab">Dinero disponible para jugar</label>
 
                 <label id="monedero" class="opt_nav_lab"> Dinero para jugar 0$</label>
 
@@ -699,23 +787,27 @@
 
             <div class="botones_1_giro">
                 <div class="giros">
-                    <button id="girar_1_rodillo" onclick="f_girar_independiente_1()">1 giro</button>
+                    <button id="girar_1_rodillo" onclick="f_girar_independiente_1()">1 GIRO = 1$</button>
                 </div>
                 <div class="giros">
-                    <button id="girar_2_rodillo" onclick="f_girar_independiente_2()">1 giro</button>
+                    <button id="girar_2_rodillo" onclick="f_girar_independiente_2()">1 GIRO = 1$</button>
                 </div>
                 <div class="giros">
-                    <button id="girar_3_rodillo" onclick="f_girar_independiente_3()">1 giro</button>
+                    <button id="girar_3_rodillo" onclick="f_girar_independiente_3()">1 GIRO = 1$</button>
                 </div>
             </div>
         </div>
 
         <div class="botones">
-            <button onclick="f_cobrar_1_tirada()">1 Giro</button>
+            <button onclick="f_cobrar_1_tirada()">1 GIRO 1$</button>
             <button id="auto_giro" class="parar" onclick="f_giro_automatico()">Giro Automatico 4$</button>
             <button id="parar" onclick="f_parar_giro()">Parar Tirada</button>
-
         </div>
+
+
+        <button id="fin_partida" onclick="f_reiniciar_juego()">Ya no tienes pesetillas , haz click para reiniciar el
+            juego</button>
+
     </div>
 </body>
 
