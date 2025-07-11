@@ -283,7 +283,7 @@
             text-transform: uppercase;
             height: 30vh;
             width: 40vw;
-            font-size: 30px;
+            font-size: 5vh;
             display: none;
             justify-content: center;
             align-items: center;
@@ -313,6 +313,12 @@
             align-items: center;
         }
 
+        .parar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .premio_juego {
             height: 5vh;
             display: none;
@@ -331,6 +337,10 @@
             text-transform: uppercase;
             font-family: Arial, Helvetica, sans-serif;
         }
+
+        #cuadro_mando {
+            display: none;
+        }
     </style>
 
     <script>
@@ -341,7 +351,8 @@
             () => {
                 cartera += 10;
                 f_desactivar_boton_add_dinero();
-                f_ver_cuadro_dinero_disponible()
+                f_ver_cuadro_dinero_disponible();
+                f_ver_opciones_juego();
             }
 
 
@@ -723,6 +734,8 @@
             if (cartera === 0) {
                 cuadro_reinicio.style.display = 'flex'
             }
+
+            f_ver_opciones_juego();
         }
 
         const f_reiniciar_juego =
@@ -734,9 +747,21 @@
                     location.reload();
                 })
 
+
             }
 
+        const f_ver_opciones_juego =
+            () => {
 
+                const cuadro_mandos = document.getElementById('cuadro_mando');
+
+                if (cartera === 0) {
+                    cuadro_mandos.style.display = 'none'
+                } else {
+                    cuadro_mandos.style.display = 'flex'
+                }
+
+            }
 
 
 
@@ -798,10 +823,10 @@
             </div>
         </div>
 
-        <div class="botones">
+        <div id="cuadro_mando" class="botones">
             <button onclick="f_cobrar_1_tirada()">1 GIRO 1$</button>
             <button id="auto_giro" class="parar" onclick="f_giro_automatico()">Giro Automatico 4$</button>
-            <button id="parar" onclick="f_parar_giro()">Parar Tirada</button>
+            <button id="parar" class="parar" onclick="f_parar_giro()">Parar Tirada</button>
         </div>
 
 
