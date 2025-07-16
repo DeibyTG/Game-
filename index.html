@@ -346,18 +346,34 @@
         #cuadro_mando {
             display: none;
         }
+
+        #recibir_ganancias {
+            display: none;
+        }
+
+        #ganancias {
+            display: none;
+        }
     </style>
 
     <script>
 
         let cartera = 0;
 
+        let dinero_inicial = 15;
+
         const f_ingresar_dinero =
             () => {
-                cartera += 10;
+                cartera = dinero_inicial;
                 f_desactivar_boton_add_dinero();
                 f_ver_cuadro_dinero_disponible();
                 f_ver_opciones_juego();
+                f_esconder_cobrar_inicio_partida();
+            }
+
+        const actualizar_dinero_inicial =
+            () => {
+                document.getElementById('ingresar1').innerText = 'Añade ' + dinero_inicial + '$';
             }
 
 
@@ -517,7 +533,7 @@
 
 
             if (src1.includes("icon_1.png") && src2.includes("icon_1.png") && src3.includes("icon_1.png")) {
-                premio1 = 2;
+                premio1 = 6;
                 cartera += premio1;
                 f_ver_cuadro_premio();
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -526,7 +542,7 @@
 
 
             } else if (src1.includes("icon_2.png") && src2.includes("icon_2.png") && src3.includes("icon_2.png")) {
-                premio2 = 4;
+                premio2 = 9;
                 cartera += premio2;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -535,7 +551,7 @@
 
 
             } else if (src1.includes("icon_3.png") && src2.includes("icon_3.png") && src3.includes("icon_3.png")) {
-                premio3 = 5;
+                premio3 = 10;
                 cartera += premio3;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -543,7 +559,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_4.png") && src2.includes("icon_4.png") && src3.includes("icon_4.png")) {
-                premio4 = 7;
+                premio4 = 12;
                 cartera += premio4;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -551,7 +567,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_5.png") && src2.includes("icon_5.png") && src3.includes("icon_5.png")) {
-                premio5 = 9;
+                premio5 = 15;
                 cartera += premio5;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -559,7 +575,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_6.png") && src2.includes("icon_6.png") && src3.includes("icon_6.png")) {
-                premio6 = 10;
+                premio6 = 20;
                 cartera += premio6;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -567,7 +583,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_7.png") && src2.includes("icon_7.png") && src3.includes("icon_7.png")) {
-                premio7 = 12;
+                premio7 = 21;
                 cartera += premio7;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -575,7 +591,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_8.png") && src2.includes("icon_8.png") && src3.includes("icon_8.png")) {
-                premio8 = 13;
+                premio8 = 24;
                 cartera += premio8;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -583,7 +599,7 @@
                 document.querySelector('.botones_1_giro').style.display = 'none';
 
             } else if (src1.includes("icon_9.png") && src2.includes("icon_9.png") && src3.includes("icon_9.png")) {
-                premio9 = 14;
+                premio9 = 25;
                 cartera += premio9;
                 f_ver_cuadro_premio()
                 document.getElementById("monedero").textContent = `${cartera}$`;
@@ -617,6 +633,7 @@
 
                 f_mostrar_boton_parar();
                 f_activar_1_giro();
+                f_desactivar_1_giro_giro_automatico();
 
 
 
@@ -635,9 +652,6 @@
 
                 let giro_automatico = document.getElementById('auto_giro');
                 giro_automatico.style.display = 'flex'
-
-
-
 
 
             }
@@ -711,6 +725,37 @@
             if (cartera === 0) {
                 document.querySelector('.botones_1_giro').style.display = 'none'
             }
+        }
+
+        function f_desactivar_1_giro_giro_automatico() {
+
+            let activar = document.querySelector('.botones_1_giro');
+
+            if (activar.style.display = 'flex') {
+
+                activar.style.display = 'none';
+            } else {
+                activar.style.display = 'flex'
+            }
+
+        }
+
+        function f_esconder_cobrar_inicio_partida() {
+
+            const boton_cobrar_dinero = document.getElementById('recibir_ganancias');
+
+            const cartera_dinero_ganado = document.getElementById('ganancias');
+
+            if (boton_cobrar_dinero.style.display = 'none') {
+
+                boton_cobrar_dinero.style.display = 'flex'
+            }
+
+            if (cartera_dinero_ganado.style.display = 'none') {
+
+                cartera_dinero_ganado.style.display = 'flex'
+            }
+
         }
 
         function f_mostrar_boton_parar() {
@@ -795,14 +840,14 @@
 
     </script>
 
-<body>
+<body onload="actualizar_dinero_inicial()">
     <div align="center" class="cuerpo_juego1">
 
         <nav>
             <div class="menu_navegacion">
 
 
-                <button id="ingresar1" class="opt_nav" onclick="f_ver_modificacion_cartera()">Añadir 10$</button>
+                <button id="ingresar1" class="opt_nav" onclick="f_ver_modificacion_cartera()"></button>
 
                 <label id="dinero_disponible" class="opt_nav_lab">Dinero disponible para jugar</label>
 
