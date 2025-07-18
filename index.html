@@ -840,6 +840,18 @@
             f_ver_opciones_juego();
         }
 
+        const f_reiniciar_juego =
+                () => {
+
+                    const reinicio = document.getElementById("fin_partida");
+
+                    reinicio = addEventListener('click', _ => {
+                        location.reload();
+                    })
+
+
+                }
+
 
         const f_ver_opciones_juego =
             () => {
