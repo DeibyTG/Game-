@@ -354,6 +354,45 @@
         #ganancias {
             display: none;
         }
+
+        .opcion_devolver_dinero_juego {
+            width: 50vw;
+            height: 80vh;
+            position: absolute;
+            top: 80px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .formulario_añadir_dinero {
+            background-color: rgba(42, 146, 184, 0.698);
+            border-radius: 12px;
+            width: 30vw;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4vh;
+        }
+
+        #cantidad_a_añadir {
+            background-color: #0a0d38;
+            color: white;
+            border-radius: 15px;
+            height: 10vh;
+            width: 10vw;
+            font-size: 6vh;
+            text-align: center;
+        }
+
+        .titulo_dinero_disponible {
+            font-size: 2rem;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-left: 5px;
+        }
     </style>
 
     <script>
@@ -374,6 +413,7 @@
         const actualizar_dinero_inicial =
             () => {
                 document.getElementById('ingresar1').innerText = 'Añade ' + dinero_inicial + '$';
+
             }
 
 
@@ -383,6 +423,8 @@
                 document.getElementById("monedero").innerText = cartera + "$";
             }
 
+        let monedero = 0
+
         const f_cobrar_dinero =
             () => {
                 f_suma_beneficio();
@@ -391,7 +433,7 @@
                 //el codigo que esta encima lo que hace es volver a 0 el dinero disponible
 
                 document.getElementById("monedero").innerText = cartera + "$";
-
+                ver_dinero_actual_monedero();
             }
 
         function f_suma_beneficio() {
@@ -403,6 +445,8 @@
             let suma = valor1 + valor2;
 
             document.getElementById("ganancias").innerText = suma + "$";
+
+            monedero = suma;
         }
 
 
@@ -420,6 +464,8 @@
                 }
 
                 f_girar();
+                f_ver_cuadro_añadir_dinero_disponible();
+                f_ver_cuadro_reinicio();
 
             }
 
@@ -794,17 +840,6 @@
             f_ver_opciones_juego();
         }
 
-        const f_reiniciar_juego =
-            () => {
-
-                const reinicio = document.getElementById("fin_partida");
-
-                reinicio = addEventListener('click', _ => {
-                    location.reload();
-                })
-
-
-            }
 
         const f_ver_opciones_juego =
             () => {
@@ -837,6 +872,81 @@
                 enable_1_giro.style.opacity = '1'
             }
         }
+
+        function f_ver_cuadro_añadir_dinero_disponible() {
+
+            ver_dinero_actual_monedero();
+
+
+        }
+
+        const ver_dinero_actual_monedero =
+            () => document.getElementById('indicador_dinero').innerText = 'Tienes ' + monedero + '$' + ' disponibles para seguir jugando';
+
+
+        let valor;
+
+        //dejo esta variable valor fuera para poder guardar la cantidad indicada en el input
+
+        const indicar_cuanto_dinero_mover_desde_monedero =
+            () => {
+
+                let cantidad_indicada = document.getElementById('cantidad_a_añadir');
+
+                valor = parseInt(cantidad_indicada.value);
+
+
+                if (isNaN(valor)) {
+
+                    alert('no es numero valido')
+
+                } else {
+
+                    f_accion_mover_monedero_para_cartera();
+                }
+
+                event.preventDefault()
+
+            }
+
+
+
+        //la constante que esta justo encima la voy a utilizar para que cuando 
+        //aparezca el cuadro , puedas decidir que cantidad de tus ganancias vas a utilizar para seguir jugando
+
+        function f_accion_mover_monedero_para_cartera() {
+
+            if (valor > monedero) {
+                alert('no tienes esa cantidad de dinero');
+            } else {
+                monedero -= valor;
+                alert('has movido ' + valor + ' ahora puedes continuar jugando , suerte!!!!!');
+
+                cartera = valor;
+
+                document.getElementById("monedero").innerText = cartera + "$";
+                document.getElementById("ganancias").innerText = monedero + "$";
+            }
+
+            desactivar_cuadro_añadir_dinero_seguir_jugando();
+
+
+        }
+
+        const desactivar_cuadro_añadir_dinero_seguir_jugando = () => {
+
+            desactivar_vista = document.getElementById('cuadro_añadir_dinero_desde_monedero');
+
+            if (desactivar_vista.style.display === 'flex') {
+
+                desactivar_vista.style.display = 'none';
+            } else {
+
+                desactivar_vista.style.display = 'flex';
+            }
+
+        }
+
 
     </script>
 
@@ -902,9 +1012,23 @@
             <button id="parar" class="parar" onclick="f_parar_giro()">Parar Tirada</button>
         </div>
 
+        <div class="opcion_devolver_dinero_juego" id="cuadro_añadir_dinero_desde_monedero">
+            <form class="formulario_añadir_dinero">
+                <label class="titulo_dinero_disponible">¿Quieres utilizar el dinero ganado para seguir jugando?</label>
+                <label id="indicador_dinero"></label>
+                <input type="text" id="cantidad_a_añadir" autofocus>
+                <button type="submit" class="añadir_dinero_jugable"
+                    onclick="indicar_cuanto_dinero_mover_desde_monedero()">Añadir</button>
+            </form>
+        </div>
 
-        <button id="fin_partida" onclick="f_reiniciar_juego()">Ya no tienes pesetillas , haz click para reiniciar el
-            juego</button>
+        <button id="fin_partida" onclick="f_reiniciar_juego()">
+            Ya no tienes pesetillas , haz click para reiniciar eljuego
+        </button>
+
+
+
+
 
     </div>
 </body>
